@@ -2,7 +2,11 @@ package com.leetcode;
 
 import java.util.ArrayList;
 
-public class DailyTemperatures {
+/**
+ * @author christian
+ * ADM chapter 1 recommended problem
+ */
+public class DailyTemperatures_739 {
 
 	public static void main(String[] args) {
 		int[] temperatures = new int[] {73,74,75,71,69,72,76,73};

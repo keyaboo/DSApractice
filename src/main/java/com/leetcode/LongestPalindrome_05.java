@@ -2,7 +2,7 @@ package com.leetcode;
 
 import java.util.Hashtable;
 
-public class App 
+public class LongestPalindrome_05 
 {
 	
 	private static String longestPalindrome(String s) {

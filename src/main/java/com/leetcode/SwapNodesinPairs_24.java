@@ -2,7 +2,11 @@ package com.leetcode;
 
 import com.leetcode.ListNode;
 
-public class SwapNodesinPairs {
+/**
+ * @author christian
+ * 
+ */
+public class SwapNodesinPairs_24 {
 
 	public static void main(String[] args) {
         int[] arr = {1,2,3,4};

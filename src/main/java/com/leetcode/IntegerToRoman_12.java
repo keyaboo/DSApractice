@@ -1,11 +1,12 @@
 package com.leetcode;
 
 /*
- * determine the thousand's place value with x % 1000
- * 
+ * this submission I got right but this isn't the best way to do this at all.
+ * Better to just have 'MC' in the character array instead of all the 
+ * error-prone shit I do to make 900 print MC.
  */
 
-public class IntegerToRoman {
+public class IntegerToRoman_12 {
 
 	public static void main(String[] args) {
 		int num = 3;

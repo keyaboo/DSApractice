@@ -2,10 +2,14 @@ package com.leetcode;
 
 import java.util.Hashtable;
 
-public class AddTwoNumbers {
+/**
+ * @author christian
+ * this was before I knew about the head/tail and nice listnode implementation found elsewhere in the project. complete shit, I tried using cloneable lmao
+ */
+public class AddTwoNumbers_02 {
 
 	public static void main(String[] args) throws CloneNotSupportedException {
-		AddTwoNumbers n = new AddTwoNumbers();
+		AddTwoNumbers_02 n = new AddTwoNumbers_02();
 		ListNode l1 = n.new ListNode();
 		l1 = n.new ListNode(4,l1);
 		l1 = n.new ListNode(5,l1);
@@ -28,7 +32,7 @@ public class AddTwoNumbers {
 	}
 	
 	private static ListNode addListNodes(ListNode l1, ListNode l2) {
-		AddTwoNumbers n = new AddTwoNumbers();
+		AddTwoNumbers_02 n = new AddTwoNumbers_02();
 		ListNode listNode = n.new ListNode();
 		boolean carry = false;
 		int carryval = (carry) ? 1 : 0;
@@ -61,7 +65,7 @@ public class AddTwoNumbers {
     }
     
     private static ListNode reverseListNode(ListNode listNode, int count) {
-		AddTwoNumbers n = new AddTwoNumbers();
+		AddTwoNumbers_02 n = new AddTwoNumbers_02();
 		Hashtable<Integer, Integer> ht = new Hashtable<Integer, Integer>();
     	for (int j = 0; j < count; j++) {
     		Integer value = listNode.val;

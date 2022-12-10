@@ -3,12 +3,22 @@ package com.leetcode;
 import java.util.Objects;
 import java.util.function.Predicate;
 
+/**
+ * @author christian
+ * convenient implementation of listnode object that I found at:
+ * https://leetcode.com/problems/delete-node-in-a-linked-list/solutions/654837/listnode-class-implementation-for-java/
+ */
 public class ListNode {
     int val;
     ListNode next;
 
     ListNode(int x) {
         val = x;
+    }
+    
+    ListNode(int val, ListNode next) {
+    	this.val = val;
+    	this.next = next;
     }
 
     public static ListNode createList(int... values) {

@@ -4,7 +4,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Hashtable;
 
-public class LongestSubstring {
+/**
+ * @author christian
+ * this one just really needed a better whiteboarding strategy.
+ */
+public class LongestSubstring_03 {
 
 	public static void main(String[] args) {
 		String s = "jbpnbwwd";

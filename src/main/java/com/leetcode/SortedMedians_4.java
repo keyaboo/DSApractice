@@ -2,7 +2,11 @@ package com.leetcode;
 
 import java.util.ArrayList;
 
-public class SortedMedians {
+/**
+ * @author christian
+ * TODO: all of this is completely fubar, will return to this and other hard problems once I'm a little better
+ */
+public class SortedMedians_4 {
 
 	public static void main(String[] args) {
 		int[] nums1 = {1 , 6};

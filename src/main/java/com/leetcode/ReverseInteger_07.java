@@ -2,7 +2,7 @@ package com.leetcode;
 
 import java.util.ArrayList;
 
-public class ReverseInteger {
+public class ReverseInteger_07 {
 
 	public static void main(String[] args) {
 		int x = 1534236469;
