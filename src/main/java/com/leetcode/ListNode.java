@@ -9,14 +9,14 @@ import java.util.function.Predicate;
  * https://leetcode.com/problems/delete-node-in-a-linked-list/solutions/654837/listnode-class-implementation-for-java/
  */
 public class ListNode {
-    int val;
-    ListNode next;
+    public int val;
+    public ListNode next;
 
-    ListNode(int x) {
+    public ListNode(int x) {
         val = x;
     }
     
-    ListNode(int val, ListNode next) {
+    public ListNode(int val, ListNode next) {
     	this.val = val;
     	this.next = next;
     }

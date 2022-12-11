@@ -1,4 +1,4 @@
-package com.leetcode;
+package com.leetcode.badstrategies;
 import com.leetcode.ListNode;
 
 
