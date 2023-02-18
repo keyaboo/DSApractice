@@ -1,4 +1,4 @@
-package com.leetcode;
+package com.leetcode.accepted;
 
 /*
  * this submission I got right but this isn't the best way to do this at all.

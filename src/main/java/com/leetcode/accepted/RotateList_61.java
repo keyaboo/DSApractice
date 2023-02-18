@@ -1,4 +1,6 @@
-package com.leetcode;
+package com.leetcode.accepted;
+
+import com.leetcode.utils.ListNode;
 
 /**
  * @author christian

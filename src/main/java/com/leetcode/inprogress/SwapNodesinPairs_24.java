@@ -1,6 +1,6 @@
-package com.leetcode;
+package com.leetcode.inprogress;
 
-import com.leetcode.ListNode;
+import com.leetcode.utils.ListNode;
 
 /**
  * @author christian

@@ -1,6 +1,6 @@
 package com.leetcode.badstrategies;
 
-import com.leetcode.ListNode;
+import com.leetcode.utils.ListNode;
 
 /**
  * @author christian

@@ -1,4 +1,4 @@
-package com.leetcode;
+package com.leetcode.utils;
 
 import java.util.Objects;
 import java.util.function.Predicate;
