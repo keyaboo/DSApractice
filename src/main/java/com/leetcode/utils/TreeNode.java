@@ -57,7 +57,17 @@ public class TreeNode {
 
     public void traverseInPreOrder(TreeNode l, List<Integer> vals) {
         if (l != null) {
-            vals.add(l.val);
+            if (!vals.contains(l.val)) {
+                vals.add(l.val);
+            }
+            if (l.left != null && l.right != null) {
+                if (!vals.contains(l.left.val)) {
+                    vals.add(l.left.val);
+                }
+                if (!vals.contains(l.right.val)) {
+                    vals.add(l.right.val);
+                }
+            }
             traverseInPreOrder(l.left, vals);
             traverseInPreOrder(l.right, vals);
         }
