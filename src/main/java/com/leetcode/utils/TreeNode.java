@@ -10,7 +10,7 @@ public class TreeNode {
     public TreeNode right;
 
     public TreeNode() {}
-    public TreeNode(int val) { this.val = val; }
+    public TreeNode(Integer val) { this.val = val; }
 
     public TreeNode(int val, TreeNode left, TreeNode right) {
         this.val = val;
@@ -26,6 +26,9 @@ public class TreeNode {
     }
 
     public static TreeNode insertTree(TreeNode l, Integer val) {
+        if (val == null) {
+            return l;
+        }
         if (l == null) {
             l = new TreeNode(val);
             return l;
@@ -36,6 +39,35 @@ public class TreeNode {
             l.right =insertTree(l.right, val);
         }
         return l;
+    }
+
+    // anything with the 'inOrder' label comes from https://www.geeksforgeeks.org/construct-complete-binary-tree-given-array/
+    public static TreeNode insertLevelOrder(Integer[] arr, Integer i) {
+        TreeNode root = null;
+        if (i < arr.length) {
+            root = new TreeNode(arr[i]);
+            // insert left child
+            root.left = insertLevelOrder(arr, 2*i + 1);
+            // insert right child
+            root.right = insertLevelOrder(arr, 2*i + 2);
+        }
+        return root;
+    }
+
+    public static TreeNode createTreeNodeLevelOrder(Integer... values) {
+        Integer[] arr = new Integer[values.length];
+            for (Integer i = 0; i < values.length; i++) {
+                arr[i] = values[i];
+            }
+            return insertLevelOrder(arr,0);
+        }
+
+    public static void inOrderPrint(TreeNode treeNode) {
+        if (treeNode != null) {
+            inOrderPrint(treeNode.left);
+            System.out.print(treeNode.val + "-> ");
+            inOrderPrint(treeNode.right);
+        }
     }
 
     public static TreeNode createTreeNode(Integer... values) {
