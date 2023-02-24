@@ -5,9 +5,7 @@ import java.util.List;
 
 public class TreeNode {
     public Integer val;
-    public TreeNode parent;
-    public TreeNode left;
-    public TreeNode right;
+    public TreeNode parent, left, right;
 
     public TreeNode() {}
     public TreeNode(Integer val) { this.val = val; }
