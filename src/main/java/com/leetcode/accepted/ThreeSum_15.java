@@ -1,4 +1,4 @@
-package com.leetcode.inprogress;
+package com.leetcode.accepted;
 import java.util.*;
 
 /*  so my thinking here is the following:
@@ -8,7 +8,7 @@ import java.util.*;
         no that's bad sort it instead.
 
         had no idea how to diagnose an infinite loop I caused ** because I was stupid
-        
+
  */
 public class ThreeSum_15 {
     public static void main(String[] args) {
@@ -22,13 +22,14 @@ public class ThreeSum_15 {
         for (int i = 0; i < nums.length - 2; i++) {
             int left = i+1;
             int right = nums.length - 1;
-            while (!(left == right)) {
+            while ((left < right)) {
                 if (nums[i] + nums[left] + nums[right] == 0) {
-                    // System.out.println("{" +nums[i] + ", " +  nums[left] + ", " + nums[right] + "}");
+                    System.out.println("{" +nums[i] + ", " +  nums[left] + ", " + nums[right] + "}");
                     tripletsSet.add(Arrays.asList(nums[i],nums[left],nums[right]));
-                    break; // LMAO I needed break here instead of continue
-                }
-                if (nums[i] + nums[left] + nums[right] < 0) {
+                    left++;
+                    right--;
+                    // the trick wasn't to use break but to keep moving
+                } else if (nums[i] + nums[left] + nums[right] < 0) {
                     left++;
                 } else if (nums[i] + nums[left] + nums[right] > 0) {
                     right--;
