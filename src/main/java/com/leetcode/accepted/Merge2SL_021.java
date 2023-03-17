@@ -1,8 +1,8 @@
-package com.leetcode.inprogress;
+package com.leetcode.accepted;
 import com.leetcode.utils.ListNode;
 
 /**
- * what I sort of figured out 
+ * account for possibility of either list being null from the beginning***
  */
 public class Merge2SL_021 {
     public static void main(String[] args){
@@ -16,14 +16,17 @@ public class Merge2SL_021 {
         ListNode head = new ListNode(0);
         ListNode curr = new ListNode(0, head);
         curr = curr.next;
+        if (list1 == null) {
+            return list2;
+        } else if (list2 == null) {
+            return list1;
+        }
         while ((list1 != null) || (list2 != null)) {
-            int list1val = list1.val; System.out.println("list1val=" + list1val);
-            int list2val = list2.val; System.out.println("list2val=" + list2val);
-            if (list1val < list2val || list1val == list2val) {
+            if (list1.val < list2.val || list1.val == list2.val) { // stupid: don't check for vals as null check for listnodes themselves
                 curr.next = new ListNode(list1.val);
                 curr = curr.next;
                 list1 = list1.next;
-            } else if (list1val > list2val) {
+            } else if (list1.val > list2.val) {
                 curr.next = new ListNode(list2.val);
                 curr = curr.next;
                 list2 = list2.next;
@@ -42,5 +45,25 @@ public class Merge2SL_021 {
         return head.next;
     }
 
+    // very cool recursive solution I found
+        public static ListNode mergeTwoListsRecursive(ListNode list1, ListNode list2) {
+            if(list1 == null) {
+                return list2;
+            }
+            if(list2 == null) {
+                return list1;
+            }
+            ListNode list3 = new ListNode();
+
+            if(list1.val < list2.val) {
+                list3 = list1;
+                list3.next = mergeTwoListsRecursive(list1.next, list2);
+            }
+            else {
+                list3 = list2;
+                list3.next = mergeTwoListsRecursive(list1, list2.next);
+            }
+            return list3;
+        }
 
 }

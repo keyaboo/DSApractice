@@ -12,6 +12,10 @@ public class ListNode {
     public int val;
     public ListNode next;
 
+    // no args constructor
+    public ListNode() {
+
+    }
     public ListNode(int x) {
         val = x;
     }
