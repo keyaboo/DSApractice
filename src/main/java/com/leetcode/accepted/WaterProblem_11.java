@@ -1,4 +1,4 @@
-package com.leetcode.inprogress;
+package com.leetcode.accepted;
 
 /**
  * @author christian
@@ -10,9 +10,29 @@ public class WaterProblem_11 {
 	
 	public static void main(String[] args) {
 		int[] arr = new int[] {1,8,6,2,5,4,8,3,7};
-		System.out.println(maxArea(arr));
+		System.out.println(maxArea2(arr));
 		
-		
+	}
+
+
+	public static int maxArea2(int[] height) {
+		int left = 0;
+		int right = height.length - 1;
+		int largestArea = 0;
+		while (left < right) {
+			int diff = right - left;
+			int area = diff * Math.min(height[left], height[right]);
+			if (area > largestArea) {
+				largestArea = area;
+			}
+			if (height[left] < height[right] || height[left] == height[right]) {
+				left++;
+			} else {
+				right--;
+			}
+		}
+
+		return largestArea;
 	}
 
 	
