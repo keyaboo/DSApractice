@@ -31,7 +31,8 @@ public class ClimbingStairs_70 {
             System.out.println();
             int slots = n - 2*i;
             // arrange the ones among n different slots I guess?
-            int npr = (factorial(slots))/(factorial(ones));
+
+            int npr = (factorial(slots))/(factorial(slots-2));
             total = total + npr;
         }
         return total;
