@@ -32,7 +32,6 @@ public class DailyTemperatures_739 {
 		ArrayList<Integer> answers = new ArrayList<>();
 		answers.add(0, 9);
 		int popCounter = 0;
-
 		for (int i = 0; i < temps.length; i++) {
 			if (stck.isEmpty() || temps[i] <= stck.peek()) {
 				stck.push(temps[i]);
@@ -43,6 +42,7 @@ public class DailyTemperatures_739 {
 					answers.add(answers.size()-popCounter, popCounter);
 					stck.pop();
 					if (stck.isEmpty()) {
+						popCounter = 0;
 						break;
 					}
 				}
@@ -60,7 +60,7 @@ public class DailyTemperatures_739 {
 	/*
 	this is garbage the
 	 */
-	
+
 	
 	
 
