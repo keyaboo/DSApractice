@@ -5,7 +5,6 @@ package com.leetcode.inprogress;
  * cheating a little bit but here's a
  * https://www.geeksforgeeks.org/traverse-a-given-matrix-using-recursion/#
  *
- *
  */
 public class FloodFill_733 {
     public static void main(String[] args) {
@@ -17,15 +16,22 @@ public class FloodFill_733 {
         int startingValue = image[sr][sc];
         int width = image[0].length;
         int height = image.length;
-        return null;
+        return floodFillRecursive(image, sr, sc, image[sr][sc], color);
     }
 
-    public static int[][] floodFillRecursive(int[][] image, int sr, int sc, int color) {
-        if (sr + 1 == image.length) {
-            //
-        } else if (sr - 1 >= 0) {
-
+    public static int[][] floodFillRecursive(int[][] image, int i, int j, int match, int color) {
+        if (i + 1 < image.length) {
+            image = floodFillRecursive(image, i+1,j,match,color);
+        } else if (i - 1 < 0) {
+            image = floodFillRecursive(image, i-1, j, match, color);
+        } else if (j + 1 < image[0].length) {
+            image = floodFillRecursive(image, i, j+1, match, color);
+        } else if (j - 1 < 0) {
+            image = floodFillRecursive(image, i, j-1, match, color);
         }
-        return null;
+        if (image[i][j] == match) {
+            image[i][j] = color;
+        }
+        return image;
     }
 }
