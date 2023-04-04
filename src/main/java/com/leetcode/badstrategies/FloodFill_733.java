@@ -1,4 +1,4 @@
-package com.leetcode.inprogress;
+package com.leetcode.badstrategies;
 
 /**
  * this seems like a great opportunity for using recursion
@@ -20,15 +20,25 @@ public class FloodFill_733 {
     }
 
     public static int[][] floodFillRecursive(int[][] image, int i, int j, int match, int color) {
+
         if (i + 1 < image.length) {
-            image = floodFillRecursive(image, i+1,j,match,color);
-        } else if (i - 1 < 0) {
-            image = floodFillRecursive(image, i-1, j, match, color);
+            if (image[i+1][j] == match){
+                image = floodFillRecursive(image, i + 1, j, match, color);
+            }
         } else if (j + 1 < image[0].length) {
-            image = floodFillRecursive(image, i, j+1, match, color);
-        } else if (j - 1 < 0) {
-            image = floodFillRecursive(image, i, j-1, match, color);
+            if (image[i][j + 1] == match){
+                image = floodFillRecursive(image, i, j + 1, match, color);
+            }
+        }  else if (i - 1 > 0) {
+            if (image[i-1][j] == match) {
+                image = floodFillRecursive(image, i - 1, j, match, color);
+            }
+        }  else if (j - 1 > 0) {
+            if (image[i][j - 1] == match) {
+                image = floodFillRecursive(image, i, j - 1, match, color);
+            }
         }
+        // this should be more of a swap?
         if (image[i][j] == match) {
             image[i][j] = color;
         }
