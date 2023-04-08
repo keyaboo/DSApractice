@@ -1,4 +1,6 @@
-package com.leetcode.inprogress;
+package com.leetcode.doagainlater;
+
+import java.util.Arrays;
 
 /**
  * this seems very similar to the flood fill problem. could basically replicate the flood fill algo
@@ -17,6 +19,8 @@ package com.leetcode.inprogress;
  * which is flipped from math intuition but w/e, I can remember 3 things if it means not making any mistakes
  * also initializing a complement boolean array, don't put minus ones here ffs, wouldn't do that for normal array:
  * boolean[][] edgeIncremented = new boolean[grid.length-1][grid[0].length-1];
+ *
+ * accepted but sort of terrible
  */
 public class NumClosedIslands_1254 {
     public static void main(String[] args) {
@@ -25,17 +29,25 @@ public class NumClosedIslands_1254 {
     }
 
     public static int closedIsland(int[][] grid) {
-        boolean[][] visited = new boolean[grid.length][grid[0].length];
-//        System.out.println("proposed x length:" + grid.length + " proposed y length:" + grid[0].length);
+//        print2D(grid);
 
-        for (int i = 0; i < grid[0].length; i++) {
-            dfsLowerEdges(grid, i, 0, visited);
-            dfsLowerEdges(grid, i, grid.length-1, visited);
+        boolean[][] visited = new boolean[grid.length][grid[0].length];
+        for (int x = 0; x < grid[0].length; x++) {
+            dfsLowerEdges(grid, x, 0, visited);
+            dfsLowerEdges(grid, x, grid.length-1, visited);
         }
+
+//        System.out.println("after transformation");
+//        print2D(grid);
+
         for (int i = 0; i < grid.length; i++) {
              dfsLowerEdges(grid, 0, i, visited);
-             dfsLowerEdges(grid, grid.length - 1, i, visited);
+             dfsLowerEdges(grid, grid[0].length - 1, i, visited);
         }
+
+//        System.out.println("after transformation2");
+//        print2D(grid);
+
         int islandCounter = 0;
         for (int x = 0; x < grid[0].length; x++) {
             for (int y = 0; y < grid.length; y++) {
@@ -48,19 +60,21 @@ public class NumClosedIslands_1254 {
 
     public static int dfsCountIslands(int[][] grid, int x, int y, boolean[][] visited) {
         int islandFound = 0;
-        if (grid[y][x] == 1 && visited[y][x] == false) {
+        if (grid[y][x] == 0 && visited[y][x] == false) {
+            System.out.println("x=" + x + " y=" + y);
+            islandFound++;
             visited[y][x] = true;
             if (x + 1 < grid[0].length) {
-                islandFound = 1 + dfsCountIslands(grid, x + 1, y, visited);
+                islandFound = islandFound + dfsCountIslands(grid, x + 1, y, visited);
             }
             if (x - 1 >= 0 ) {
-                islandFound = 1 + dfsCountIslands(grid, x - 1, y, visited);
+                islandFound = islandFound + dfsCountIslands(grid, x - 1, y, visited);
             }
             if (y + 1 < grid.length) {
-                islandFound = 1 + dfsCountIslands(grid, x, y + 1, visited);
+                islandFound = islandFound + dfsCountIslands(grid, x, y + 1, visited);
             }
             if (y - 1 >= 0) {
-                islandFound = 1 +dfsCountIslands(grid, x, y - 1, visited);
+                islandFound = islandFound + dfsCountIslands(grid, x, y - 1, visited);
             }
         }
         if (islandFound > 0) {
@@ -74,21 +88,45 @@ public class NumClosedIslands_1254 {
         if (grid[y][x] == 0) {
             grid[y][x] = 1;
             visited[y][x] = true;
-            if (x + 1 < grid[0].length) {
+            if (x + 1 < grid[0].length && visited[y][x+1] == false) {
                 dfsLowerEdges(grid, x + 1, y, visited);
             }
-            if (x - 1 >= 0 ) {
+            if (x - 1 >= 0 && visited[y][x-1] == false) {
                 dfsLowerEdges(grid, x - 1, y, visited);
             }
-            if (y + 1 < grid.length) {
+            if (y + 1 < grid.length && visited[y + 1][x] == false) {
                 dfsLowerEdges(grid, x, y + 1, visited);
             }
-            if (y - 1 >= 0) {
+            if (y - 1 >= 0 && visited[y - 1][x] == false) {
                 dfsLowerEdges(grid, x, y - 1, visited);
             }
         } else {
             return;
         }
+    }
+
+    /**
+     * for some reason the edges aren't getting counted out
+     * @param mat
+     */
+    public static void print2D(int mat[][])
+    {
+        // Loop through all rows
+        for (int[] row : mat)
+
+            // converting each row as string
+            // and then printing in a separate line
+            System.out.println(Arrays.toString(row));
+    }
+
+    public static void print2Dbool(boolean mat[][])
+    {
+        // Loop through all rows
+        for (boolean[] row : mat)
+
+            // converting each row as string
+            // and then printing in a separate line
+            System.out.println(Arrays.toString(row));
     }
 
 
