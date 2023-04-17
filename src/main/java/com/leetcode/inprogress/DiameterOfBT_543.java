@@ -11,6 +11,7 @@ import com.leetcode.utils.TreeNode;
  *
  * this would be so much more convenient if I could manipulate the tree to ensure left is always longer or whatever.
  *
+ * I didn't account for the possibility that rlength could be zero
  */
 public class DiameterOfBT_543 {
     public static void main(String[] args) {
@@ -18,13 +19,30 @@ public class DiameterOfBT_543 {
     }
 
     public static int diameterOfBinaryTree(TreeNode root) {
-        int greedyDiameter = 0;
         int lDepth = maxDepth(root.left);
         int rDepth = maxDepth(root.right);
         if (lDepth < rDepth) {
             root = swap(root);
+            int temp = lDepth;
+            lDepth = rDepth;
+            rDepth = temp;
         }
-        return 0;
+        if (lDepth > 2 * rDepth) {
+            while (lDepth > 2 * rDepth) {
+                root = root.left;
+                lDepth = maxDepth(root.left);
+                rDepth = maxDepth(root.right);
+                if (lDepth < rDepth) {
+                    root = swap(root);
+                    int temp = lDepth;
+                    lDepth = rDepth;
+                    rDepth = temp;
+                }
+            }
+            return lDepth + rDepth;
+        } else {
+            return lDepth + rDepth;
+        }
     }
 
     public static int maxDepth(TreeNode root) {
