@@ -1,4 +1,4 @@
-package com.leetcode.inprogress;
+package com.leetcode.badstrategies;
 
 import com.leetcode.utils.TreeNode;
 
@@ -11,7 +11,7 @@ import com.leetcode.utils.TreeNode;
  *
  * this would be so much more convenient if I could manipulate the tree to ensure left is always longer or whatever.
  *
- * I didn't account for the possibility that rlength could be zero
+ * I didn't account for the possibility that rLength could be zero
  */
 public class DiameterOfBT_543 {
     public static void main(String[] args) {
@@ -27,7 +27,7 @@ public class DiameterOfBT_543 {
             lDepth = rDepth;
             rDepth = temp;
         }
-        if (lDepth > 2 * rDepth) {
+        if (lDepth > 2 * rDepth && lDepth > 1) {
             while (lDepth > 2 * rDepth) {
                 root = root.left;
                 lDepth = maxDepth(root.left);
