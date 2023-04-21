@@ -1,4 +1,4 @@
-package com.leetcode.badstrategies;
+package com.leetcode.suboptimalsolutions;
 
 import java.util.*;
 
@@ -16,7 +16,7 @@ import java.util.*;
  * which the compiler would normally yell at you for not initializing but in the context of arrays with fixed lengths
  * that isn't really a problem.
  */
-public class FloodFill_lessbad_733 {
+public class FloodFill_733 {
 
     public static void main(String[] args) {
         int[][] image = {{1, 1, 1}, {1, 1, 0}, {1, 0, 1}};

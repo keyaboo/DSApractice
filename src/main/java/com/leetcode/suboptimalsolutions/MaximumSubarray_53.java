@@ -1,4 +1,4 @@
-package com.leetcode.badstrategies;
+package com.leetcode.suboptimalsolutions;
 
 /**
  * figuring out when to move left so you don't end up with O(n^2)
@@ -35,7 +35,7 @@ package com.leetcode.badstrategies;
  * not even kind of the right approach here haha.
  *
  */
-public class MaximumSubarrayredone_53 {
+public class MaximumSubarray_53 {
     public static void main(String[] args) {
         // I hate having to do this but it seems there's an infinite sum somewhere.
         int[] nums = {31,-41,59,26,-53,58,97,-93,-23,84};
