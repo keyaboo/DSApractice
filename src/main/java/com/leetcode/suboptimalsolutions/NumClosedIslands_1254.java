@@ -1,4 +1,4 @@
-package com.leetcode.doagainlater;
+package com.leetcode.suboptimalsolutions;
 
 import java.util.Arrays;
 
