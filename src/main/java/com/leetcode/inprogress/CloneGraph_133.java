@@ -13,6 +13,10 @@ public class CloneGraph_133 {
 
     }
 
+    public Node cloneGraph(Node node) {
+        return new Node();
+    }
+
     private static class Node {
         public int val;
         public List<Node> neighbors;
