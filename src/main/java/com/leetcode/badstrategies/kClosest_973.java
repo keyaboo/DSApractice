@@ -9,6 +9,7 @@ import java.util.PriorityQueue;
  * brute force would be to sort distances and return first k.
  *
  * seems I am getting the opposite results. I hate how I did this tbh going to look at the solution.
+ *
  */
 public class kClosest_973 {
     public int[][] kClosest(int[][] points, int k) {
@@ -25,7 +26,7 @@ public class kClosest_973 {
             int x = points[i][0];
             int y = points[i][1];
             Point p = new Point(new int[] {x, y});
-            if (minHeap.peek().distance > p.distance) {
+            if (minHeap.peek().distance < p.distance) {
                 continue;
             } else {
                 minHeap.poll();
@@ -57,7 +58,7 @@ public class kClosest_973 {
 
         @Override
         public int compareTo(Point anotherPoint) {
-            return  Double.compare(this.distance, anotherPoint.distance);
+            return  Double.compare(anotherPoint.distance, this.distance);
         }
     }
 
