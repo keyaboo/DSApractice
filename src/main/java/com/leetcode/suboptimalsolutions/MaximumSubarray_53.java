@@ -1,6 +1,8 @@
 package com.leetcode.suboptimalsolutions;
 
 /**
+ * Addendum: 
+ *
  * figuring out when to move left so you don't end up with O(n^2)
  *
  *
