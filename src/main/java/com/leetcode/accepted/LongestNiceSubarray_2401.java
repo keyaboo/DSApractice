@@ -1,4 +1,4 @@
-package com.leetcode.inprogress;
+package com.leetcode.accepted;
 
 /**
  * cheated a little too much on longest subarray, doing this problem legit since it's similar.
@@ -19,6 +19,19 @@ package com.leetcode.inprogress;
  * [84139415,693324769,614626365,497710833,615598711,264,65552,50331652,1,1048576,16384,544,270532608,151813349,221976871,678178917,845710321,751376227,331656525,739558112,267703680]
  *
  * where 8 was expected but it spit out 7, I suspect there's some hack I don't know about just gonna look at the answer.
+ *
+ * Ok I'm an idiot here, but it's good to mention why:
+ *
+ * in MaxSubarray problem, the condition I set up for the left moving in was currentSum dipping below 0.
+ * this is silly because say you have (left) 8 -7 X X X X (right), the sum of the full window could never
+ * be greater WITHOUT the 8 and -7, because even though it's only +1 to whatever the X's are, it's still > the
+ * X's sum, and I was doing silly checks. With this though, left moving in could lead to a potentially larger
+ * window since your greedy variable (the concat. of 1's using bitwise |) might want to shed values from
+ * earlier on in the subarray. My aversion to repeating the same mistake had to do with setting up SW taking
+ * quite a while for a non-SW problem, didn't think about how this was different.
+ *
+ * In that problem, having the gap/distance information contained in a single currentLongest variable makes
+ * sense, whereas here left/right gap must constantly be compared with whatever the longest distance is.
  */
 public class LongestNiceSubarray_2401 {
     public int longestNiceSubarray(int[] nums) {
@@ -36,6 +49,22 @@ public class LongestNiceSubarray_2401 {
             max = Math.max(max, currentLongest);
         }
 
+        return max;
+    }
+
+
+    public int longestNiceSubarray2(int[] nums) {
+        int max = 0, left = 0;
+        int bitwiseWindowSum = 0;
+        for (int right = 0; right < nums.length; right++) {
+            while ((nums[right] & bitwiseWindowSum) != 0) {
+                bitwiseWindowSum = bitwiseWindowSum ^ nums[left]; // shed left values until bitwise & equals 0
+                left++;
+            }
+            bitwiseWindowSum = bitwiseWindowSum | nums[right];
+            max = Math.max(max, right - left + 1);
+
+        }
         return max;
     }
 }
