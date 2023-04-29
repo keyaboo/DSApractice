@@ -20,7 +20,6 @@ import java.util.*;
  * curr becomes this thing. hmmm
  * (Y1 X1 X2) node then becomes this thing
  *
- *
  *         Node curr = null;
  *         Node head = new Node(-1, new ArrayList<>(Arrays.asList(curr)));
  *
@@ -35,32 +34,56 @@ import java.util.*;
  *
  * hmm no they both need to know they're connected to one another.
  *
+ * I feel like some sort of second loop is inevitable because the copy for the neighbor doesn't exist yet
+ *
+ * ok I really need to get in the habit of readying these functions anticipating nulls and other edge cases
+ *
+ * just gonna look at the solution, fix up whatever's wrong with this since it's hard to test. I imagine there's
+ * some way of doing this that doesn't require two hashmaps, in fact having just one with value being a composite
+ * class of integer neighbors and baby nodes could work, but custom classes suck.
  */
 public class CloneGraph_133 {
 
     public Node cloneGraphBFS(Node node) {
-        Node curr = node;
-        Node head = new Node(-1, new ArrayList<>(Arrays.asList(curr)));
+        // adding ugly comments as a mark of cain for hitting submit without considering edge cases.
+        if (node == null) {
+            return null;
+        } else if (node.neighbors.isEmpty()) {
+            return new Node(node.val);
+        }
+        int head = node.val; // just for returning head of the original thing at the end.
         Queue<Node> traversal = new ArrayDeque<>();
-        Queue<Node> traversalCopy = new ArrayDeque<>();
+        HashMap<Integer, List<Integer>> neighborAssociation = new HashMap<>();
+        HashMap<Integer, Node> storedCopies = new HashMap<>();
         Set<Node> traversed = new HashSet<>();
         traversal.add(node);
-        traversed.add(node);
         while (!traversal.isEmpty()) {
             node = traversal.poll();
             traversed.add(node);
+            ArrayList<Integer> neighbors = new ArrayList<>();
             for (int i = 0; i < node.neighbors.size(); i++) {
-                if (!traversed.contains(node.neighbors.get(i)))
-                traversal.add(node.neighbors.get(i));
+                if (!(traversed.contains(node.neighbors.get(i)))) {
+                    traversal.add(node.neighbors.get(i));
+                    // sloppy of me to add more here this is only for the queue
+                }
+                neighbors.add(node.neighbors.get(i).val);
             }
-            curr = new Node(node.val, (ArrayList<Node>) node.neighbors);
+            neighborAssociation.put(node.val, neighbors);
+            storedCopies.put(node.val, new Node(node.val));
         }
-        return head.neighbors.get(0);
-
+        for (Integer key:storedCopies.keySet()) {
+            ArrayList<Node> newNeighbors = new ArrayList<>();
+            for (int i = 0; i < neighborAssociation.get(key).size(); i++) {
+                newNeighbors.add(storedCopies.get(i));
+            }
+            storedCopies.put(key, new Node(key, newNeighbors));
+        }
+        // this got so big my curly braces got all messed up.
+        return storedCopies.get(head);
     }
 
     /**
-     * maybe create a generic graph utility class sometime later.
+     * maybe create a generic graph utility class for instantiating with adjacency list inputs later.
      */
     private static class Node {
         public int val;
