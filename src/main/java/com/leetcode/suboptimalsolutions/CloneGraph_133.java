@@ -64,7 +64,7 @@ public class CloneGraph_133 {
     //        map.computeIfAbsent("key5", k -> 2000 + 33000);
     //
     public Node cloneGraphRecursive(Node node) {
-        return (node == null) ? null : cloneGraphRecursive(node, new HashMap<Integer, Node>);
+        return (node == null) ? null : cloneGraphRecursive(node, new HashMap<Integer, Node>());
     }
 
     public Node cloneGraphRecursive(Node node, HashMap<Integer, Node> nodeByVal) {
