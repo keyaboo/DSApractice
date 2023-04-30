@@ -14,6 +14,8 @@ import java.util.*;
  *
  * did not get a particularly impressive time so this one's going into suboptimal solutions. bfs may just
  * be slower compared to other traversal methods, however.
+ *
+ * similar problem 1490: clone N-ary Tree
  */
 public class CloneGraph_133 {
     public Node cloneGraph(Node node) {
@@ -42,6 +44,49 @@ public class CloneGraph_133 {
         }
         return storedCopies.get(node);
     }
+
+
+    /**
+     * recursive dfs solution I want to get familiar with
+     *
+     * hashmap method computeIfAbsent(key, lambdaFunction) is useful to know about, important that it returns
+     * the value for whatever was just inserted into the table. the old and boring way to do this would be
+     * set value for whatever you have the key for equal to null, do a containskey check, reassign value
+     * to map.get(key), otherwise put(key, value whatever), reassign with map.get(key)
+     *
+     * public V
+     *        computeIfAbsent(K key,
+     *              Function<? super K, ? extends V> remappingFunction)
+     */
+
+    // provide value for new key which is absent
+    // using computeIfAbsent method
+    //        map.computeIfAbsent("key5", k -> 2000 + 33000);
+    //
+    public Node cloneGraphRecursive(Node node) {
+        return (node == null) ? null : cloneGraphRecursive(node, new HashMap<Integer, Node>);
+    }
+
+    public Node cloneGraphRecursive(Node node, HashMap<Integer, Node> nodeByVal) {
+        if (nodeByVal.containsKey(node.val)) {
+            return nodeByVal.get(node.val);
+        }
+        Node clone =  nodeByVal.computeIfAbsent(node.val, k -> new Node(node.val));
+        for (Node neighbor:node.neighbors) {
+            clone.neighbors.add(cloneGraphRecursive(neighbor, nodeByVal));
+        }
+        return clone;
+    }
+
+    /**
+     * starting out at node1, the map won't have any record for it, so proceed to creating a clone and
+     * adding an entry for it. then it'll look for its neighbors, none of which will have entries either,
+     * so the function calls itself on each one of the neighbors. eventually you'll get so far into the
+     * graph that one of the nodes will have entries for all its neighbors, whether say that's 10 recursive
+     * calls deep clone10 will be returned, and added to neighbors for 9 until all of 9s neighbors have
+     * entries in the map, back back back to looping over the neighbors of clone for node1, by which point
+     * all the information will be available for clone1 to be a true root copy of the original graph.
+     */
 
 
     private static class Node {
