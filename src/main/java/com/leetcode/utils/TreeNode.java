@@ -6,6 +6,7 @@ import java.util.List;
 public class TreeNode {
     public Integer val;
     public TreeNode parent, left, right;
+    public List<TreeNode> children;
 
     public TreeNode() {}
     public TreeNode(Integer val) { this.val = val; }
@@ -16,7 +17,7 @@ public class TreeNode {
         this.right = right;
     }
 
-    public TreeNode(Integer val, TreeNode left, TreeNode right, TreeNode parent) {
+    public TreeNode(Integer val, TreeNode children, TreeNode parent) {
         this.val = val;
         this.left = left;
         this.right = right;
