@@ -17,7 +17,7 @@ public class TreeNode {
         this.right = right;
     }
 
-    public TreeNode(Integer val, TreeNode children, TreeNode parent) {
+    public TreeNode(Integer val, List<TreeNode> children, TreeNode parent) {
         this.val = val;
         this.left = left;
         this.right = right;
