@@ -1,10 +1,11 @@
-package com.leetcode.inprogress;
+package com.leetcode.accepted;
 
 import java.util.ArrayList;
 
 /**
  * the difficulty here is resetting the min value in O(1) time whenever there is a pop
  * monotonic stacks could help you if there's only one pop. I am so stupid this is another graph problem.
+ * ^ no it's not.
  * a node can have data and a pointer to the last minimum.
  *
  *
@@ -17,23 +18,33 @@ public class MinStack_155 {
     }
 
     public void push(int val) {
+        Node newNode = null;
         if (nodes.isEmpty()) {
-            Node newNode = new Node(val);
+            newNode = new Node(val);
             newNode.small = newNode;
-            nodes.add(newNode);
+        } else {
+            int small = this.nodes.get(this.nodes.size() - 1).small.val;
+            newNode = new Node(val);
+            if (val < small) {
+                newNode.small = newNode;
+            } else {
+                newNode.small = this.nodes.get(this.nodes.size() - 1).small;
+            }
         }
+        nodes.add(newNode);
+
     }
 
     public void pop() {
-
+        this.nodes.remove(this.nodes.get(this.nodes.size() - 1));
     }
 
     public int top() {
-        return 0;
+        return this.nodes.get(this.nodes.size() - 1).val;
     }
 
     public int getMin() {
-        return 0;
+        return this.nodes.get(this.nodes.size() - 1).small.val;
     }
 
     private static class Node {

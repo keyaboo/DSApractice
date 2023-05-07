@@ -19,6 +19,11 @@ package com.leetcode.accepted;
  * from R -> L: [6 * 1 = 6 (R = 6), 2 * now where do we get 4 from? nums instead of res. nums[nums.length-1] * 2 = 4,
  * ]
  * [24, 12, 8, 6]
+ *
+ * ok best way to think about this is visually
+ * [ 1, 2, 3, 4 ]
+ * [ 1, 1, 2, 6 ] take what's to the left and what's to the top left.
+ *
  */
 public class ProductExceptSelf_238 {
     public int[] productExceptSelf(int[] nums) {
