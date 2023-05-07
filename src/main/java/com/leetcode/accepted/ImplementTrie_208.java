@@ -7,6 +7,10 @@ import java.util.ArrayList;
  *
  * it works, didn't get an impressive time score though. could probably do some hashing to make this go faster,
  * because the way this is written there's no way this is a 20 minute problem.
+ *
+ * doing this instead with a trie array with 26 elements is faster than cycling through the neighbors every time.
+ * so I guess the tip here is, if you don't have to cycle through neighbors because information about the data
+ * could tell you what index it's going to be on, don't!
  */
 public class ImplementTrie_208 {
     CharNode root;
