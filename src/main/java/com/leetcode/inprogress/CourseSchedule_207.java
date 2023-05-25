@@ -14,6 +14,8 @@ import java.util.Queue;
  * kahn's algorithm of topological sorting:
  * https://www.interviewkickstart.com/learn/kahns-algorithm-topological-sorting
  *
+ * fails the test case of 1 course with an empty prerequisites matrix
+ *
  */
 public class CourseSchedule_207 {
     public boolean canFinish(int numCourses, int[][] prerequisites) {
@@ -23,11 +25,11 @@ public class CourseSchedule_207 {
             adjMatrix[prerequisite[1]][prerequisite[0]] = 1; // row comes first, column second
             indegree[prerequisite[1]] = prerequisite[0];
         }
-        int count = 0; // count being compared to numCourses is the criteria by which we return true
+        int count = numCourses; // count being compared to numCourses is the criteria by which we return true
         Queue<int[]> queue = new LinkedList<>();
         for (int i = 0; i < numCourses; i++) {
             if (indegree[i] == 0) {
-                count++;
+                count--;
                 queue.add(adjMatrix[i]); // adds a row to the queue
             }
         }
@@ -41,10 +43,11 @@ public class CourseSchedule_207 {
                     queue.add(successor);
                 }
             }
-            count++; // this is different and worth remembering, increment count with the poll, not
+            count--; // this is different and worth remembering, increment count with the poll, not
             // when a successor is found within the for loop.
         }
 
-        return count == numCourses;
+
+        return count == 0;
     }
 }
