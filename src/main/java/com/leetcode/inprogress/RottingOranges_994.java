@@ -5,40 +5,33 @@ package com.leetcode.inprogress;
  */
 public class RottingOranges_994 {
     public int orangesRotting(int[][] grid) {
-        int minutes = 0;
+        int minutes = 2;
         for (int x = 0; x < grid[0].length; x++) {
             for (int y = 0; y < grid.length; y++) {
                 if (grid[y][x] == 2) {
-                    minutes = Math.max(minutes, dfs(grid, 0, x, y));
+                    dfs(grid, 2, x, y);
                 }
             }
         }
-
         for (int x = 0; x < grid[0].length; x++) {
             for (int y = 0; y < grid.length; y++) {
                 if (grid[y][x] == 1) {
                     return -1;
                 }
+                minutes = Math.max(minutes, grid[y][x]);
             }
         }
         return minutes;
     }
 
-    public static int dfs(int[][] grid, int currentTime, int x, int y) {
+    public void dfs(int[][] grid, int currentTime, int x, int y) {
         if (y < 0 || y >= grid.length || x < 0 || x >= grid[0].length) {
-            return 0;
+            return;
+        } else {
+            grid[y][x] = currentTime;
+            dfs(grid, currentTime+1, x-1, y);dfs(grid, currentTime+1, x+1, y);
+            dfs(grid, currentTime+1, x, y+1);
+            dfs(grid, currentTime+1, x, y-1);
         }
-        if (grid[y][x] == 0) {
-            return 0;
-        } else
-        if (grid[y][x] == 1) {
-            grid[y][x] = 2;
-            int left = dfs(grid, currentTime, x-1, y);
-            int right = dfs(grid, currentTime, x+1, y);
-            int up = dfs(grid, currentTime, x, y+1);
-            int down = dfs(grid, currentTime, x, y-1);
-            currentTime = 1 + currentTime + Math.max(left, Math.max(right, Math.max(up, down)))
-        }
-        return currentTime;
     }
 }
