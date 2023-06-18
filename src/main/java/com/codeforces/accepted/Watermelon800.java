@@ -1,4 +1,4 @@
-package com.codeforces.inprogress;
+package com.codeforces.accepted;
 
 
 import java.util.Scanner;
