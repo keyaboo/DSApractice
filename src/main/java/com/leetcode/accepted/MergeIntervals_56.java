@@ -21,9 +21,13 @@ public class MergeIntervals_56 {
         // the part where i cheat on the sort, need to make an anki card for this or something.
         Arrays.sort(intervals, (i1, i2) -> Integer.compare(i1[0], i2[0]));
         ArrayList<int[]> res = new ArrayList<>();
-        int[] prevInterval = new int[] {-1, -1};
-        for (int[] interval:intervals) {
-            if (prevInterval[1] >= 0) {
+        int[] prevInterval = new int[] {Integer.MIN_VALUE, Integer.MIN_VALUE};
+        for (int i = 0; i < intervals.length; i++) {
+            int[] interval = intervals[i];
+            if (i == 0) {
+                prevInterval = interval;
+                continue;
+            } else {
                 if (interval[0] <= prevInterval[1]) {
                     interval = new int[] {prevInterval[0], Math.max(interval[1], prevInterval[1])};
                 } else {
