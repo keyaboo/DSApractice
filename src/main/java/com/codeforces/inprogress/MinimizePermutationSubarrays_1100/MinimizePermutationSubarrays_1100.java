@@ -1,12 +1,14 @@
-package com.codeforces.inprogress;
+package com.codeforces.inprogress.MinimizePermutationSubarrays_1100;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Scanner;
-import java.util.stream.IntStream;
 
 /**
  * key point to notice is that 1 and 2 should be as far away from each other as possible.
+ * X X X 1 X 2 X X
+ * take min of (one/twoindex)
+ * find abs of one/two index
+ * find difference of array.length - 1 - math(one/twoindex)
  */
 public class MinimizePermutationSubarrays_1100 {
     public static void main(String[] args) {
@@ -22,17 +24,30 @@ public class MinimizePermutationSubarrays_1100 {
                 elements[j] = sc.nextInt();
                 System.out.print(elements[j]);
             }
-            System.out.println("");
             permutationElements.add(elements);
         }
-//        minimize(permutationElements);
+        minimize(permutationElements);
     }
 
     private static void minimize(ArrayList<Integer[]> permutationElements) {
         for (int i = 0; i < permutationElements.size(); i++) {
-            int oneIndex = permutationElements.indexOf(1);
-            int twoIndex = permutationElements.indexOf(2);
+            Integer[] elements = permutationElements.get(i);
+            int oneIndex = -1;
+            int twoIndex = -1;
+            for (int j = 0; j < elements.length; j++) {
+                if (elements[j] == 1) {
+                    oneIndex = j;
+                } else if (elements[j] == 2) {
+                    twoIndex = j;
+                }
+            }
+            if (Math.abs(twoIndex - oneIndex) == elements.length - 1) {
+                System.out.println("1 1");
+            } else if (true) {
+
+            }
             System.out.println("one index: " + oneIndex + " \ntwo index: " + twoIndex);
+
         }
     }
 }
