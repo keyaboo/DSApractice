@@ -11,7 +11,66 @@ import java.util.*;
  */
 public class AccountsMerge_721 {
     public List<List<String>> accountsMerged(List<List<String>> accounts) {
-        return null;
+        Map<String, String> owners = new HashMap<>(); // email, owner
+        Map<String, String> parents = new HashMap<>();
+        Map<String, TreeSet<String>> unions = new HashMap<>();
+
+        for (int i = 0; i < accounts.size(); i++) {
+            List<String> account = accounts.get(i);
+            String owner = account.get(0);
+            for (int j = 1; j < account.size(); j++) {
+                String email = account.get(j);
+                owners.put(email, owner);
+                parents.put(email, email); // here we're assigning default representatives, but the value
+                // could at some point be overriden by emails from other subsets
+            }
+        }
+
+        // union each account's parent to be the first one in the list (the representative)
+        for (List<String> account: accounts) {
+            String p1 = find(parents, account.get(1));
+            for (int i = 2; i < account.size(); i++) {
+                String p2 = find(parents, account.get(i));
+                // if a record exists already in parents that isn't account.get(i), it'll cycle through the parents
+                // adding accounts.get(i) and any parents it has to
+                parents.put(p2, p1); // p1 is the representative for every email of a given subset of emails
+            }
+        }
+
+        // now combine the union sets
+        for (List<String> account:accounts) {
+            String p1 = find(parents, account.get(1));
+            if (!unions.containsKey(p1)) {
+                unions.put(p1, new TreeSet<>());
+            }
+            Set<String> emailSets = unions.get(p1);
+            for (int i = 1; i < account.size(); i++) { // i = 1, so the representative is inclusive here
+                emailSets.add(account.get(i));
+            }
+        }
+        List<List<String>> res = new ArrayList<>();
+        for (String p : unions.keySet()) {
+            List<String> emails = new ArrayList<>(unions.get(p));
+            emails.add(0, owners.get(p));
+            res.add(emails);
+        }
+        return res;
+    }
+
+
+    /**
+     * finds the group that x 'node' belongs to
+     * @param parents
+     * @param node
+     * @return
+     */
+    private String find(Map<String, String> parents, String node) {
+        while (!parents.get(node).equals(node)) { // the convention is that the parent of a root is itself, if it is skip block
+            parents.put(node, parents.get(parents.get(node))); // I have no idea why this calls parents.get twice
+            // the important part here is that if a parent is found for a later subset
+            node = parents.get(node);
+        }
+        return node;
     }
 
     public List<List<String>> accountsMergedDFS(List<List<String>> accounts) {
