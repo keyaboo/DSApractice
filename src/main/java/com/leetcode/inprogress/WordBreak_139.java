@@ -7,7 +7,9 @@ import java.util.Arrays;
 import java.util.List;
 
 /*
-    seems like a trie problem
+    seems like a trie problem - no not a trie problem
+    have a dp bool array that determines whether at a given letter of the input string, the dictionary has a terminating
+    
  */
 public class WordBreak_139 {
     public static void main(String[] args) {
@@ -17,6 +19,12 @@ public class WordBreak_139 {
     }
 
     public static boolean wordBreak(String s, List<String> wordDict) {
+
+        return false;
+    }
+
+
+    public static boolean wordBreakbad(String s, List<String> wordDict) {
         Trie trie = new Trie();
         for (String word:wordDict) {
             trie.insert(word);
