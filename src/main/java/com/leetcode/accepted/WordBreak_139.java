@@ -1,6 +1,7 @@
 package com.leetcode.accepted;
 
 import com.leetcode.utils.Trie;
+import com.leetcode.utils.TrieNode;
 
 import java.util.*;
 
@@ -16,6 +17,7 @@ public class WordBreak_139 {
         String s = "leetcode";
         List wordDict = new ArrayList<>(Arrays.asList("leet", "code"));
         System.out.println(wordBreak(s, wordDict));
+        System.out.println(wordBreakTrie(s, wordDict));
     }
 
     /*
@@ -36,29 +38,43 @@ public class WordBreak_139 {
         return dp[s.length()];
     }
 
-
     /*
     could this be done with tries yes probably idk
     EDIT after submission of above: definitely could be done with tries and faster
      */
-    public static boolean wordBreakbad(String s, List<String> wordDict) {
+    public static boolean wordBreakTrie(String s, List<String> wordDict) {
         Trie trie = new Trie();
         for (String word:wordDict) {
             trie.insert(word);
         }
-        Trie curr = trie;
-        String substring = "";
-        for (int i = 0; i < s.length(); i++) {
-            Character c = s.charAt(i);
-            substring += c;
-            if (curr.find(substring)) {
-                substring = "";
-                curr = trie;
-                if (i == s.length() - 1) {
-                    return true;
+        boolean[] dp = new boolean[s.length()];
+        boolean[] visited = new boolean[s.length()];
+        return dfs(s, 0, trie.getRoot(), dp, visited);
+    }
+
+    private static boolean dfs(String s, int curr, TrieNode root, boolean[] dp, boolean[] visited) {
+        if (curr == s.length()) {
+            return true; // this is just the condition for the entire string s having the dictionary words be components,
+            // a dp[s.length - 1] which is by default false would return for both methods if that weren't the case
+        }
+        if (visited[curr]) {
+            return dp[curr];
+        }
+
+        TrieNode node = root;
+        for (int i = curr; i < s.length(); i++) { // substrings always shorter than or eq to s, start at different places
+            char c = s.charAt(i);
+            if (!(node.getChildren().containsKey(c))) {
+                break;
+            } else {
+                node = node.getChildren().get(c); // retrieve the next trienode since the character on the index is legitimate
+                if (node.isEndOfWord() && dfs(s, i + 1, root, dp, visited)) {
+                    dp[curr] = true;
+                    break;
                 }
             }
         }
-        return false;
+        visited[curr] = true;
+        return dp[curr];
     }
 }

@@ -24,4 +24,12 @@ public class Trie {
         return current.isEndOfWord();
     }
 
+    public TrieNode getRoot() {
+        return this.root;
+    }
+    public Trie() {};
+    public Trie(TrieNode root) {
+        this.root = root;
+    }
+
 }
