@@ -1,15 +1,15 @@
-package com.leetcode.inprogress;
+package com.leetcode.accepted;
 
 import com.leetcode.utils.Trie;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 /*
     seems like a trie problem - no not a trie problem
-    have a dp bool array that determines whether at a given letter of the input string, the dictionary has a terminating
-    
+    have a dp bool array that determines whether at a given letter of the input string, the dictionary has a string
+    terminating on the index character.
+    use hashset to store wordDict
+    loops similar to the partial subset equal sum except j starts from the left
  */
 public class WordBreak_139 {
     public static void main(String[] args) {
@@ -18,12 +18,29 @@ public class WordBreak_139 {
         System.out.println(wordBreak(s, wordDict));
     }
 
+    /*
+    this is really crappy O(n^2), the faster ones do dfs with tries
+     */
     public static boolean wordBreak(String s, List<String> wordDict) {
-
-        return false;
+        Set<String> dict = new HashSet<>();
+        dict.addAll(wordDict);
+        boolean[] dp = new boolean[s.length() + 1];
+        dp[0] = true;
+        for (int i = 1; i < s.length() + 1; i++) {
+            for (int j = 0; j < i; j++) {
+                if (dict.contains(s.substring(j, i)) && dp[j]) {
+                    dp[i] = true;
+                }
+            }
+        }
+        return dp[s.length()];
     }
 
 
+    /*
+    could this be done with tries yes probably idk
+    EDIT after submission of above: definitely could be done with tries and faster
+     */
     public static boolean wordBreakbad(String s, List<String> wordDict) {
         Trie trie = new Trie();
         for (String word:wordDict) {
