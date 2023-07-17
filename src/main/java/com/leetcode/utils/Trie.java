@@ -6,7 +6,7 @@ public class Trie {
     public void insert(String word) {
         TrieNode current = root;
         for (char l: word.toCharArray()) {
-            current = current.getChildren().computeIfAbsent(l, c -> new TrieNode());
+            current = current.getChildren().computeIfAbsent(l, c -> new TrieNode(l));
         }
         current.setEndOfWord(true);
     }
@@ -27,9 +27,9 @@ public class Trie {
     public TrieNode getRoot() {
         return this.root;
     }
-    public Trie() {};
-    public Trie(TrieNode root) {
-        this.root = root;
+    public Trie() {
+        this.root = new TrieNode();
     }
+
 
 }

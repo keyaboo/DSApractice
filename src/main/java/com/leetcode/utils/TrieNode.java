@@ -12,7 +12,12 @@ public class TrieNode {
     private boolean isWord;
 
     public TrieNode() {
+        this.children = new HashMap<>();
+    }
 
+    public TrieNode(char prefix) {
+        this.content = String.valueOf(prefix);
+        this.children = new HashMap<>();
     }
 
     public HashMap<Character, TrieNode> getChildren() {
