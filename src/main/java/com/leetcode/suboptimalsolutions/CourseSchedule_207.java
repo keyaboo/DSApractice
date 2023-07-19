@@ -1,4 +1,4 @@
-package com.leetcode.inprogress;
+package com.leetcode.suboptimalsolutions;
 
 import java.util.*;
 
@@ -21,45 +21,48 @@ public class CourseSchedule_207 {
     so I guess you can have a [3,1],[3,2] situation which is where my test case failed.
     map<int,int> a poor indegree data structure then? tried map<int, list<int>> and it failed elsewhere on
     [[1,0],[1,2],[0,1]]
+    oh you don't know where the deletes are happening
+
+    I misunderstood what the indegree array was designed for, it just tells you how many indegrees there are
+    not where they're coming from.
+    there's no reason to make the queue an int[], can just refer to the row from adjmatrix directly
+
+    note: this was slow as shit because I looped over every course in the matrix, could easily have used an arraylist
+    to accomplish the same thing, was thinking looping over arrays was faster than vectors, but there's no reason
+    to preserve the full size really.
  */
     public static boolean canFinish2(int numCourses, int[][] prerequisites) {
         int[][] adjMatrix = new int[numCourses][numCourses];
-        HashMap<Integer,List<Integer>> indegree = new HashMap<>();
+        int[] indegree = new int[numCourses];
         for (int[] prereq:prerequisites) {
             adjMatrix[prereq[1]][prereq[0]] = 1;
-            if (indegree.containsKey(prereq[0])) { // this is my own little spin on branching prereqs
-                List<Integer> pres = indegree.get(prereq[0]);
-                pres.add(prereq[1]);
-            } else {
-                indegree.put(prereq[0], new ArrayList<>(Arrays.asList(prereq[1])));
-            }
+            indegree[prereq[0]]++;
         }
 
         int count = numCourses;
-        Queue<int[]> queue = new LinkedList<>();
+        Queue<Integer> queue = new LinkedList<>();
         for (int i = 0; i < numCourses; i++) {
-            if (!(indegree.containsKey(i))) {
-                queue.add(adjMatrix[i]); // add any row without an indegree to the queue first
+            if ((indegree[i] == 0)) {
+                queue.add(i); // add any row without an indegree to the queue first
                 // if you get a situation like example 2 where every course has an indegree, skip the while loop entirely and return false
                 count--;
             }
         }
 
         while (queue.size() != 0) {
-            int[] course = queue.poll(); // generic course, a queue/while loop object only, no modifying values
+            int courseNum = queue.poll();
+            int[] course = adjMatrix[courseNum];
             for (int i = 0; i < numCourses; i++) {
-                if (course[i] == 1) { // consult indegree to determine which row to delete the '1' from
-                    List<Integer> pres = indegree.get(i);
-                    for (int j = 0; j < pres.size(); j++) {
-                        int pre = pres.get(j);
-                        adjMatrix[pre][i]--; // have to remove to avoid infinite loops in case we return to a course's row via a cycle
+                if (course[i] == 1) {
+                    indegree[i]--;
+                    if (indegree[i] == 0) { // for branching prereqs, don't add the later course until you've encountered all prereqs in the queue
+                        queue.add(i);
+                        count--; // also don't count until they're all gone.
                     }
-                    queue.add(adjMatrix[i]);
-                    count--;
+
                 }
             }
         }
-
         return count == 0;
     }
 

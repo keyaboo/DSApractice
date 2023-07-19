@@ -10,6 +10,9 @@ import java.util.List;
  * (the power set).
  *
  * The solution set must not contain duplicate subsets. Return the solution in any order.
+ *
+ * starting index is part of the function for subset problem bc recursive calls want to begin elsewhere.
+ * permutation backtracking start at 0 and do a check for presence already
  */
 public class SubsetsBackTracking_78 {
     public List<List<Integer>> subsets(int[] nums){
@@ -26,7 +29,7 @@ public class SubsetsBackTracking_78 {
         list.add(new ArrayList<>(tempList));
         // but here there's no condition, the list is appended to incrementally, and the resulting list
         // adds the temp list.
-        for (int i = 0; i < nums.length; i++) {
+        for (int i = start; i < nums.length; i++) {
             tempList.add(nums[i]);
             backtrack(list, tempList, nums, i + 1);
             tempList.remove(tempList.size() - 1);
