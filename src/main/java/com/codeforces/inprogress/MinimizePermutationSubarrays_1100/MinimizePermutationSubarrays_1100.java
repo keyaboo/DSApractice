@@ -13,20 +13,19 @@ import java.util.Scanner;
 public class MinimizePermutationSubarrays_1100 {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        int testCases = sc.nextInt();
-        System.out.println(testCases);
-        ArrayList<Integer[]> permutationElements = new ArrayList<>();
-        for (int i = 0; i < testCases; i++) {
-            int permutationSize = sc.nextInt();
-            System.out.println(permutationSize);
-            Integer[] elements = new Integer[permutationSize];
-            for (int j = 0; j < permutationSize; j++) {
-                elements[j] = sc.nextInt();
-                System.out.print(elements[j]);
+        while(sc.hasNext()) {
+            int testCases = sc.nextInt();
+            ArrayList<Integer[]> permutationElements = new ArrayList<>();
+            for (int i = 0; i < testCases; i++) {
+                int permutationSize = sc.nextInt();
+                Integer[] elements = new Integer[permutationSize];
+                for (int j = 0; j < permutationSize; j++) {
+                    elements[j] = sc.nextInt();
+                }
+                permutationElements.add(elements);
             }
-            permutationElements.add(elements);
+            minimize(permutationElements);
         }
-        minimize(permutationElements);
     }
 
     private static void minimize(ArrayList<Integer[]> permutationElements) {
@@ -34,19 +33,32 @@ public class MinimizePermutationSubarrays_1100 {
             Integer[] elements = permutationElements.get(i);
             int oneIndex = -1;
             int twoIndex = -1;
+            int threeIndex = -1;
             for (int j = 0; j < elements.length; j++) {
-                if (elements[j] == 1) {
-                    oneIndex = j;
-                } else if (elements[j] == 2) {
-                    twoIndex = j;
+                switch(elements[j]) {
+                    case (1):
+                        oneIndex = j;
+                    case (2):
+                        twoIndex = j;
+                    case (3):
+                        threeIndex = j;
                 }
             }
+            int smaller = Math.min(oneIndex, twoIndex);
+            int larger = Math.max(oneIndex, twoIndex);
+            int midPoint = ((elements.length - 1) % 2 == 0) ? (elements.length - 1) / 2 : ((elements.length - 1) / 2) + 1;
             if (Math.abs(twoIndex - oneIndex) == elements.length - 1) {
                 System.out.println("1 1");
-            } else if (true) {
-
+            } else if ((oneIndex <= midPoint && twoIndex <= midPoint)) {
+                System.out.println((Math.max(oneIndex, twoIndex) + 1) + " " + elements.length);
+            } else if ((oneIndex >= midPoint && twoIndex >= midPoint)) {
+                System.out.println("1 " + (Math.min(oneIndex, twoIndex) + 1));
+            } else if ((larger - smaller) <= smaller) {
+                System.out.println(larger + 1 + " " + elements.length);
+            } else {
+                System.out.println("1 " + smaller + 1);
+//                System.out.println("one index: " + oneIndex + " \ntwo index: " + twoIndex);
             }
-            System.out.println("one index: " + oneIndex + " \ntwo index: " + twoIndex);
 
         }
     }

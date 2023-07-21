@@ -1,4 +1,4 @@
-package com.codeforces.accepted;
+package com.codeforces.accepted.Watermelon_800;
 
 
 import java.util.Scanner;

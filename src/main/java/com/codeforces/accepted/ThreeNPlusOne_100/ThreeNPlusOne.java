@@ -1,4 +1,4 @@
-package com.codeforces.inprogress;
+package com.codeforces.accepted.ThreeNPlusOne_100;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -6,9 +6,10 @@ import java.util.List;
 import java.util.Scanner;
 
 /*
-    this is a dp problem, create a map of the numbers encountered in the first few
+    this is a dp problem, create a map of the numbers encountered in the first few goes at it and hope you reach it again.
+    It's not a dp problem really, though they should make the range wide enough that it should be.
  */
-public class ThreeNPlusOneProblem {
+public class ThreeNPlusOne {
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
@@ -24,14 +25,9 @@ public class ThreeNPlusOneProblem {
             inputPairs.add(range);
         }
         for (int i = 0; i < inputPairs.size(); i++) {
-//            int maxCycle = maxCycles(inputPairs.get(i));
-            int maxCycle = 0;
-//            System.out.println(inputPairs.get(i)[0] + " " + inputPairs.get(i)[1] + " " + maxCycle);
+            int maxCycle = maxCycles(inputPairs.get(i));
+            System.out.println(inputPairs.get(i)[0] + " " + inputPairs.get(i)[1] + " " + maxCycle);
         }
-        int[] dummy = new int[2];
-        dummy[0] = 2;
-        dummy[1] = 10;
-        maxCycles(dummy);
     }
 
     private static int getCollatzSuccessor(int n) {
@@ -43,33 +39,37 @@ public class ThreeNPlusOneProblem {
         int maxCount = 0;
         int maxIndex = min;
         HashMap<Integer, Integer> collatzLengthMemo = new HashMap<>();
+        collatzLengthMemo.put(1, 1);
+        collatzLengthMemo.put(2, 2);
         for (int i = min; i <= max; i++) {
-            if (min == 1) {
-                collatzLengthMemo.put(1, 1);
+            if (i == 1) {
                 continue;
             }
             int val = i;
             ArrayList<Integer> sequence = new ArrayList<>();
             int stepsAhead = 0;
             while (val != 1) {
-                sequence.add(val);
                 if (collatzLengthMemo.containsKey(val)) {
                     stepsAhead = collatzLengthMemo.get(val);
                     break;
                 } else {
+                    sequence.add(val);
                     val = getCollatzSuccessor(val);
                 }
             }
-            for (int j = sequence.size() - 1; j >= 0; j--) {
-                collatzLengthMemo.put(sequence.get(j), j + stepsAhead);
+            for (int j = 0; j < sequence.size(); j++) {
+                if (!(collatzLengthMemo.containsKey(sequence.get(j)))) { // this is only for the value 2
+                    collatzLengthMemo.put(sequence.get(j), sequence.size() - j + stepsAhead);
+                }
             }
             maxCount = Math.max(maxCount, collatzLengthMemo.get(i));
-            if (collatzLengthMemo.get(i) == maxCount) {
-                maxIndex = i;
-            }
+//            if (collatzLengthMemo.get(i) == maxCount) {
+//                maxIndex = i;
+//            }
         }
-        System.out.println("maxCount= " + maxCount + "maxIndex= " + maxIndex);
-        return 0;
+//        System.out.println("maxIndex= " + maxIndex + " ,steps=" + collatzLengthMemo.get(maxIndex));
+
+        return maxCount;
     }
 
-    }
+}
