@@ -9,6 +9,11 @@ package com.leetcode.accepted;
  * new variables.
  *
  * accepted hell yeah.
+ *
+ * recommended solution doesn't compute sum, everything's just tacked onto carry. instead of sum equaling 3,2,1, or 0
+ * you can just use remainder for carry term % 2. outside the loop if carry equals 1 you append onto it, which is what
+ * I did. whether this is done with a trimmed char array or stringbuilder is something that can be practiced.
+ *
  */
 public class AddBinary_67 {
 

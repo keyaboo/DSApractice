@@ -46,5 +46,13 @@ public class BalancedBinaryTree_110 {
             }
         }
     }
+
+    private static int height(TreeNode root) {
+        if (root == null) {
+            return -1;
+        }
+        return 1 + Math.max(height(root.left), height(root.right));
+
+    }
 }
 
