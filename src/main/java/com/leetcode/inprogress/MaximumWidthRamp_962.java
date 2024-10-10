@@ -9,8 +9,14 @@ import java.util.Stack;
     Then do a second pass going in reverse, call counter for it j.
     Check to see whether nums[j] is >= nums[TOS], and if so pop it and do a ramp reassignment. However,
     if the stack isn't empty, there's going to be an even wider ramp for the next value on the stack.
-    So this check needs to be done in a while loop until either the stack is empty and the nums[j] <= nums[TOS]
+    So this check needs to be done in a while loop until either the stack is empty or the nums[j] <= nums[TOS]
     a large nums[0] could still be at the bottom of stack and hold up knowing the answer.
+
+    alternative 2P (practice some day):
+    create an array of max values to the right eg nums: [1,6,5,2,4] -> [6,6,5,4,4]
+    counter right is used to progress along second array for every loop iter, terminating at end of array.
+    only move left if it's gt maxright[right], left can't exceed right. maxramp candidate is
+    itself or right - left.
  */
 public class MaximumWidthRamp_962 {
     public int maxWidthRamp(int[] nums) {
