@@ -53,7 +53,7 @@ public class Merge2SL_021 {
             if(list2 == null) {
                 return list1;
             }
-            ListNode list3 = new ListNode();
+            ListNode list3;
 
             if(list1.val < list2.val) {
                 list3 = list1;
