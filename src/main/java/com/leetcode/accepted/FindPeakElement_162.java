@@ -1,4 +1,4 @@
-package com.leetcode.inprogress;
+package com.leetcode.accepted;
 
 public class FindPeakElement_162 {
     /*

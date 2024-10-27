@@ -1,4 +1,4 @@
-package com.leetcode.inprogress;
+package com.leetcode.accepted;
 
 /*
     this is very similar to 1963 minimum balanced swaps.

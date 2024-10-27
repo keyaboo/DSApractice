@@ -1,6 +1,6 @@
-package com.leetcode.inprogress;
+package com.leetcode.badstrategies;
 
-public class SearchInRotatedSortedArray_33 {
+public class Rotatedsortedarraysearch_33 {
 
     /**
      * determine whether target and midpoint are on the same side or not by comparing against the first value in the

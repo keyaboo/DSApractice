@@ -1,4 +1,4 @@
-package com.leetcode.inprogress;
+package com.leetcode.accepted;
 
 import java.util.Arrays;
 
@@ -15,6 +15,5 @@ public class MissingNumber_268 {
         }
         return fullSeriesSum;
     }
-
 
 }
