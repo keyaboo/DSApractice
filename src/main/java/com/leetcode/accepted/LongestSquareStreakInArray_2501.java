@@ -8,7 +8,7 @@ import java.util.Set;
     there are a LOT of silly little things about this problem that the map doesn't have to worry about. O(n) which
     is nice but first line I'd have some trouble remembering.
  */
-public class LongestSquareStreakInArray {
+public class LongestSquareStreakInArray_2501 {
     public int longestSquareStreak(int[] nums) {
         Set<Integer> allNums = new HashSet<>(Arrays.asList((Arrays.stream(nums).boxed().toArray(Integer[]::new))));
         int longestStreak = 0;
