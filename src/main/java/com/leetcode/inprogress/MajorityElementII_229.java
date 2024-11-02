@@ -13,10 +13,16 @@ public class MajorityElementII_229 {
         List<Integer> res = new ArrayList<>();
         int count0 = 0;
         int count1 = 0;
-        int num0;
-        int num1;
+        int num0 = Integer.MIN_VALUE;
+        int num1 ;
         for (int i = 0; i < n; i++) {
             int num = nums[i];
+
+            if (count0 == 0 && count1 == 0) {
+                num0 = num; count0++;
+            } else if (count0 > 0 && count1 == 0) {
+                // num1 =
+            }
         }
         int freq0 = 0;
         int freq1 = 1;

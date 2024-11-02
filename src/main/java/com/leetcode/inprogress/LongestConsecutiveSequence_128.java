@@ -17,7 +17,7 @@ public class LongestConsecutiveSequence_128 {
             if (!allNums.contains(num - 1)) {
                 int streak = 1;
                 while (allNums.contains(num + 1)) {
-                    num = num + 1;
+                    num = num + 1; // sloppy forgot this in the redo.
                     streak++;
                 }
                 longestStreak = Math.max(longestStreak, streak);
