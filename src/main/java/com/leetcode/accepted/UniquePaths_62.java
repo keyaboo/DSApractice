@@ -33,6 +33,6 @@ public class UniquePaths_62 {
             prev = dp;
         }
         return dp[n-1];
-    }
+    } // there's no reason to have an extra array for the previous row.
 
 }
