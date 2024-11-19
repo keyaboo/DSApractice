@@ -1,9 +1,6 @@
 package com.codeforces.contests.Div3Round988.SharkySurfing;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
@@ -32,17 +29,37 @@ public class Main {
             System.exit(0);
         }
     }
-
+    /*
+    this isn't a dp problem. you have a priorityqueue of the stuff sharky comes across, like you're probably going
+    to see a powerup before an obstacle. obstacle[1] and powerUp[1] and the marking of 1L/0L are just data, like
+    storing an index in an event-based pq.
+     */
     private static int minimumPowerUps(Long dist, List<Long[]> obstacles, List<Long[]> powerUps) {
-        for (int i = 0; i < obstacles.size(); i++) {
-            System.out.println(obstacles.get(i)[0] + " " + obstacles.get(i)[1]);
+        List<List<Long>> events = new ArrayList<>();
+        for (Long[] obstacle : obstacles) {
+            events.add(Arrays.asList(obstacle[0], obstacle[1], 1L)); // Hurdle events (using 1L for long)
         }
-        List<Long> dp = new ArrayList<>();
-        for (long i = 0; i <= dist; i++) {
-            dp.add(Long.MAX_VALUE);
+        for (Long[] powerUp : powerUps) {
+            events.add(Arrays.asList(powerUp[0], powerUp[1], 0L)); // Power-up events (using 0L)
         }
-        dp.set(0, 1L);
-
-        return 0;
+        events.sort(Comparator.comparingLong(a -> a.get(0)));
+        Integer k = 1;
+        PriorityQueue<Integer> pwr = new PriorityQueue<>(Collections.reverseOrder());
+        for (List<Long> event : events) {
+            long a = event.get(0);
+            long b = event.get(1);
+            long type = event.get(2);
+            if (type == 0) {
+                pwr.offer(Math.toIntExact(b));
+            } else {
+                while (!pwr.isEmpty() && k < b - a + 2) { // inclusive so +2
+                    k += pwr.poll();
+                }
+                if (k < b - a + 2) { // the interval is bigger than maximum jump
+                    return -1;
+                }
+            }
+        }
+        return powerUps.size() - pwr.size();
     }
 }
