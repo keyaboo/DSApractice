@@ -1,4 +1,4 @@
-package com.leetcode.inprogress;
+package com.leetcode.accepted;
 
 /*
 Sliding window is the other technique that accomplishes this task in O(n) rather than O(n^2), that's all I know.

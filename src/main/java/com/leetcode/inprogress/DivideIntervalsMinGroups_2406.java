@@ -35,4 +35,5 @@ public class DivideIntervalsMinGroups_2406 {
         }
         return minHeap.size();
     }
+    //TODO: also implement the sweep line version of this problem 'meeting rooms' or w/e
 }
