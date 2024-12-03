@@ -1,4 +1,4 @@
-package com.codeforces.inprogress.RakhshRevival;
+package com.codeforces.contests.Div2Round989.RakhshRevival;
 
 import java.util.ArrayList;
 import java.util.HashMap;

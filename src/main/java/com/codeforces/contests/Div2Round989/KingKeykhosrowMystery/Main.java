@@ -1,4 +1,4 @@
-package com.codeforces.inprogress.KingKeykhosrowMystery;
+package com.codeforces.contests.Div2Round989.KingKeykhosrowMystery;
 
 import java.util.Scanner;
 
